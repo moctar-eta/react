@@ -1,25 +1,27 @@
+<?php
+// dashboard.php : page protégée, accessible seulement après connexion
+session_start();
+
+if (!isset($_SESSION["user_id"])) {
+    header("Location: ../frontend/cpp.html");
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Connexion</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="../frontend/style.css">
 </head>
 <body>
   <main class="card">
-    <h1>Connexion</h1>
-    <form id="loginForm" action="../backend/login.php" method="post"></form>
-      <label for="username">Nom d'utilisateur est requis</label>
-      <input type="text" id="username" name="username" required>
-
-      <label for="password">Mot de passe est requis</label>
-      <input type="password" id="password" name="password" required>
-
-      <button type="submit">Se connecter avec un compte</button>
-      <p id="message" role="status"></p>
+    <h1>Dashboard</h1>
+    <p>Bienvenue, <strong><?= htmlspecialchars($_SESSION["username"]) ?></strong> !</p>
+    <form action="logout.php" method="post">
+      <button type="submit">Se déconnecter</button>
     </form>
   </main>
-  <script src="script.js"></script>
 </body>
 </html>
